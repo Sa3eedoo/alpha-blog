@@ -3,51 +3,52 @@
   Articles
 </h1>
 
-<div class="container" style="font-family:'Poppins',sans-serif; max-width:800px;">
+<div style="font-family:'Poppins',sans-serif; max-width:800px; margin:0 auto;">
   <% @articles.each do |article| %>
-    <div class="card shadow-sm mb-4" 
-         style="border:none; border-radius:1rem; background-color:#fff; transition:transform 0.3s ease, box-shadow 0.3s ease; padding:25px;">
+    <div style="border:none; border-radius:1rem; background-color:#fff; 
+                box-shadow:0 4px 10px rgba(0,0,0,0.05); margin-bottom:25px; 
+                padding:25px; transition:transform 0.3s ease, box-shadow 0.3s ease;">
       
-      <div class="card-body" style="padding:0;">
-        <h4 class="card-title" 
-            style="font-weight:600; color:#212529; margin-bottom:12px;">
-          <%= article.title %>
-        </h4>
+      <!-- Username (like Twitter) -->
+      <div style="font-weight:700; font-size:1.1rem; color:#0d6efd; margin-bottom:8px;">
+        <%= article.user.present? ? "👤 #{article.user.username}" : "@anonymous" %>
+      </div>
 
-        <p class="card-text" 
-           style="color:#6c757d; font-size:0.95rem; margin-bottom:15px; line-height:1.6;">
-          <%= truncate(article.description, length:160) %>
-        </p>
+      <!-- Title -->
+      <h4 style="font-weight:600; color:#212529; margin-bottom:12px;">
+        <%= article.title %>
+      </h4>
 
-        <!-- Created/Updated info -->
-        <div style="color:#adb5bd; font-size:0.85rem; margin-bottom:20px;">
-          🕒 Created <%= time_ago_in_words(article.created_at) %> ago
-          <br>
-          🔄 Updated <%= time_ago_in_words(article.updated_at) %> ago
-        </div>
+      <!-- Description -->
+      <p style="color:#6c757d; font-size:0.95rem; margin-bottom:15px; line-height:1.6;">
+        <%= truncate(article.description, length:160) %>
+      </p>
 
-        <div class="d-flex flex-wrap justify-content-start" style="gap:10px;">
-          <%= link_to 'View', article_path(article), 
-                class: 'btn btn-outline-primary btn-sm', 
-                style: 'border-radius:50px; padding:8px 20px; font-weight:500; font-size:0.9rem; transition:all 0.2s ease;' %>
+      <!-- Created/Updated info -->
+      <div style="color:#adb5bd; font-size:0.85rem; margin-bottom:20px;">
+        🕒 Created <%= time_ago_in_words(article.created_at) %> ago
+        <br>
+        🔄 Updated <%= time_ago_in_words(article.updated_at) %> ago
+      </div>
 
-          <%= link_to 'Edit', edit_article_path(article), 
-                class: 'btn btn-outline-secondary btn-sm', 
-                style: 'border-radius:50px; padding:8px 20px; font-weight:500; font-size:0.9rem; transition:all 0.2s ease;' %>
+      <!-- Buttons -->
+      <div style="display:flex; flex-wrap:wrap; gap:10px;">
+        <%= link_to 'View', article_path(article), 
+              style: 'border:1px solid #0d6efd; color:#0d6efd; background:white; border-radius:50px; padding:8px 20px; font-weight:500; font-size:0.9rem; text-decoration:none; transition:all 0.2s ease;' %>
 
-          <%= button_to 'Delete', article_path(article), 
-                method: :delete, 
-                form: { data: { turbo_confirm: 'Are you sure?' } }, 
-                class: 'btn btn-outline-danger btn-sm', 
-                style: 'border-radius:50px; padding:8px 20px; font-weight:500; font-size:0.9rem; transition:all 0.2s ease; display:inline-block;' %>
-        </div>
+        <%= link_to 'Edit', edit_article_path(article), 
+              style: 'border:1px solid #6c757d; color:#6c757d; background:white; border-radius:50px; padding:8px 20px; font-weight:500; font-size:0.9rem; text-decoration:none; transition:all 0.2s ease;' %>
+
+        <%= button_to 'Delete', article_path(article), 
+              method: :delete, 
+              form: { data: { turbo_confirm: 'Are you sure?' } }, 
+              style: 'border:1px solid #dc3545; color:#dc3545; background:white; border-radius:50px; padding:8px 20px; font-weight:500; font-size:0.9rem; transition:all 0.2s ease; display:inline-block;' %>
       </div>
     </div>
   <% end %>
 
-  <div class="text-center" style="margin-top:60px; padding-bottom:80px;">
+  <div style="text-align:center; margin-top:60px; padding-bottom:80px;">
     <%= link_to '➕ New Article', new_article_path, 
-          class: 'btn btn-lg btn-primary shadow-sm', 
-          style: 'border-radius:50px; padding:12px 32px; font-family:Poppins,sans-serif; font-weight:500; letter-spacing:0.5px;' %>
+          style: 'border:none; background-color:#0d6efd; color:white; border-radius:50px; padding:12px 32px; font-family:Poppins,sans-serif; font-weight:500; font-size:1rem; text-decoration:none; letter-spacing:0.5px; transition:background 0.3s ease;' %>
   </div>
 </div>
