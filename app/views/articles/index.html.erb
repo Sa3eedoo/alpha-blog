@@ -1,23 +1,53 @@
-<table>
-    <thead>
-        <tr>
-            <th>Title</th>
-            <th>Description</th>
-            <th colspan="3">Actions</th>
-        </tr>
-    </thead>
+<h1 style="text-align:center; margin-top:40px; margin-bottom:30px; 
+           font-family:'Poppins',sans-serif; font-weight:600; color:#212529;">
+  Articles
+</h1>
 
-    <tbody>
-        <% @articles.each do |article| %>
-            <tr>
-                <td><%= article.title %></td>
-                <td><%= article.description %></td>
-                <td><%= button_to 'Show', article_path(article), method: :get %></td>
-                <td><%= button_to 'Edit', edit_article_path(article), method: :get %></td>
-                <td><%= button_to 'Delete', article_path(article), method: :delete %></td>
-            </tr>
-        <% end %>
-    </tbody>
-</table>
+<div class="container" style="font-family:'Poppins',sans-serif; max-width:800px;">
+  <% @articles.each do |article| %>
+    <div class="card shadow-sm mb-4" 
+         style="border:none; border-radius:1rem; background-color:#fff; transition:transform 0.3s ease, box-shadow 0.3s ease; padding:25px;">
+      
+      <div class="card-body" style="padding:0;">
+        <h4 class="card-title" 
+            style="font-weight:600; color:#212529; margin-bottom:12px;">
+          <%= article.title %>
+        </h4>
 
-<p><%= button_to 'Create new Article', new_article_path, method: :get %></p>
+        <p class="card-text" 
+           style="color:#6c757d; font-size:0.95rem; margin-bottom:15px; line-height:1.6;">
+          <%= truncate(article.description, length:160) %>
+        </p>
+
+        <!-- Created/Updated info -->
+        <div style="color:#adb5bd; font-size:0.85rem; margin-bottom:20px;">
+          🕒 Created <%= time_ago_in_words(article.created_at) %> ago
+          <br>
+          🔄 Updated <%= time_ago_in_words(article.updated_at) %> ago
+        </div>
+
+        <div class="d-flex flex-wrap justify-content-start" style="gap:10px;">
+          <%= link_to 'View', article_path(article), 
+                class: 'btn btn-outline-primary btn-sm', 
+                style: 'border-radius:50px; padding:8px 20px; font-weight:500; font-size:0.9rem; transition:all 0.2s ease;' %>
+
+          <%= link_to 'Edit', edit_article_path(article), 
+                class: 'btn btn-outline-secondary btn-sm', 
+                style: 'border-radius:50px; padding:8px 20px; font-weight:500; font-size:0.9rem; transition:all 0.2s ease;' %>
+
+          <%= button_to 'Delete', article_path(article), 
+                method: :delete, 
+                form: { data: { turbo_confirm: 'Are you sure?' } }, 
+                class: 'btn btn-outline-danger btn-sm', 
+                style: 'border-radius:50px; padding:8px 20px; font-weight:500; font-size:0.9rem; transition:all 0.2s ease; display:inline-block;' %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="text-center" style="margin-top:60px; padding-bottom:80px;">
+    <%= link_to '➕ New Article', new_article_path, 
+          class: 'btn btn-lg btn-primary shadow-sm', 
+          style: 'border-radius:50px; padding:12px 32px; font-family:Poppins,sans-serif; font-weight:500; letter-spacing:0.5px;' %>
+  </div>
+</div>

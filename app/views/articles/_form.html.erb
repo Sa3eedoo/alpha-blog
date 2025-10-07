@@ -1,26 +1,48 @@
-<% if @article.errors.any? %>
-  <h2>The following errors prevented the article from being saved</h2>
-  <ul>
-    <% @article.errors.full_messages.each do |msg| %>
-      <li><%= msg %></li>
+<div class="container" 
+     style="max-width:600px; margin-top:60px; padding-bottom:80px; font-family:'Poppins',sans-serif;">
+
+  <% if @article.errors.any? %>
+    <div class="alert alert-danger" 
+         style="border-radius:12px; box-shadow:0 4px 10px rgba(0,0,0,0.1);">
+      <h4 style="font-weight:600; color:#721c24;">Please fix the following errors:</h4>
+      <ul style="margin-top:10px; color:#721c24;">
+        <% @article.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="card shadow-sm" 
+       style="border:none; border-radius:1rem; padding:30px; background-color:white; box-shadow:0 8px 20px rgba(0,0,0,0.05);">
+    <h2 style="text-align:center; margin-bottom:25px; font-weight:600; color:#212529;">
+      <%= @article.new_record? ? "Create New Article" : "Edit Article" %>
+    </h2>
+
+    <%= form_with(model: @article, local: true) do |f| %>
+      <div class="form-group" style="margin-bottom:20px;">
+        <%= f.label :title, style: 'font-weight:500; color:#495057;' %>
+        <%= f.text_field :title, class: 'form-control', 
+              style: 'border-radius:8px; padding:10px 12px; border:1px solid #ced4da; font-size:1rem; margin-top:6px;' %>
+      </div>
+
+      <div class="form-group" style="margin-bottom:25px;">
+        <%= f.label :description, style: 'font-weight:500; color:#495057;' %>
+        <%= f.text_area :description, class: 'form-control', 
+              style: 'border-radius:8px; padding:10px 12px; border:1px solid #ced4da; font-size:1rem; height:120px; margin-top:6px;' %>
+      </div>
+
+      <div class="text-center">
+        <%= f.submit (@article.new_record? ? 'Create Article' : 'Update Article'), 
+              class: 'btn btn-primary btn-lg', 
+              style: 'border-radius:50px; padding:10px 28px; font-weight:500; transition:all 0.2s ease;' %>
+      </div>
     <% end %>
-  </ul>
-<% end %>
+  </div>
 
-<%= form_with(model: @article, local: true) do |f| %>
-
-  <p>
-    <%= f.label :title %><br/>
-    <%= f.text_field :title %>
-  </p>
-
-  <p>
-    <%= f.label :description %><br/>
-    <%= f.text_area :description %>
-  </p>
-
-  <p>
-    <%= f.submit %>
-  </p>
-
-<% end %>
+  <div class="text-center" style="margin-top:30px;">
+    <%= link_to '⬅ Back to Articles', articles_path, 
+          class: 'btn btn-outline-secondary', 
+          style: 'border-radius:50px; padding:8px 20px; font-weight:500;' %>
+  </div>
+</div>

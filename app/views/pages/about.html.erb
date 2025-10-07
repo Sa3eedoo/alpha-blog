@@ -1,4 +1,28 @@
-<h1>This is the about page</h1>
+<div class="container" 
+     style="max-width:800px; margin-top:60px; text-align:center; font-family:'Poppins',sans-serif; padding-bottom:80px;">
 
-<%= button_to 'Articles listing', articles_path, method: :get %>
-<%= button_to 'Home page', root_path, method: :get %>
+  <h1 style="font-weight:600; color:#212529; margin-bottom:20px;">
+    About Alpha Blog
+  </h1>
+
+  <p style="color:#6c757d; font-size:1rem; line-height:1.7; margin-bottom:40px;">
+    Alpha Blog is a simple, elegant platform built to help users share their thoughts, 
+    articles, and stories with the world. Our mission is to create a clean and enjoyable 
+    writing experience where everyone can express their ideas freely and beautifully.
+  </p>
+
+  <p style="color:#6c757d; font-size:1rem; line-height:1.7; margin-bottom:50px;">
+    This project was built using <strong>Ruby on Rails 7</strong> and <strong>Bootstrap 4.4</strong>, 
+    focusing on simplicity, responsiveness, and a smooth user experience.
+  </p>
+
+  <div class="text-center" style="display:flex; justify-content:center; gap:15px; flex-wrap:wrap;">
+    <%= link_to '🏠 Home', root_path, 
+          class: 'btn btn-outline-primary', 
+          style: 'border-radius:50px; padding:10px 22px; font-weight:500; font-size:0.95rem;' %>
+
+    <%= link_to '📝 Articles', articles_path, 
+          class: 'btn btn-primary', 
+          style: 'border-radius:50px; padding:10px 22px; font-weight:500; font-size:0.95rem;' %>
+  </div>
+</div>

@@ -1,3 +1,30 @@
 <% flash.each do |name, msg| %>
-  <%= msg %>
+  <% alert_class = case name.to_sym
+    when :notice then 'alert-success'
+    when :alert  then 'alert-danger'
+    else 'alert-info'
+  end %>
+
+  <div class="alert <%= alert_class %> alert-dismissible fade show text-center" 
+       role="alert"
+       style="max-width:600px; margin:20px auto; border-radius:12px; 
+              font-family:'Poppins',sans-serif; font-weight:500; 
+              box-shadow:0 4px 12px rgba(0,0,0,0.05);">
+
+    <%# Optional emoji or icon based on type %>
+    <% if name.to_sym == :notice %>
+      ✅ 
+    <% elsif name.to_sym == :alert %>
+      ⚠️ 
+    <% else %>
+      💬 
+    <% end %>
+
+    <%= msg %>
+
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close" 
+            style="outline:none;">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
 <% end %>

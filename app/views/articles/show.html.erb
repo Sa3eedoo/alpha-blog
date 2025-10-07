@@ -1,6 +1,45 @@
-<p><strong>Title: </strong><%= @article.title %></p>
-<p><strong>Description: </strong><%= @article.description %></p>
+<div class="container" 
+     style="max-width:700px; margin-top:60px; font-family:'Poppins',sans-serif;">
 
-<%= button_to 'Edit', edit_article_path(@article), method: :get %>
-<%= button_to 'Delete', article_path(@article), method: :delete %>
-<%= button_to 'Return to articles listing', articles_path, method: :get %>
+  <div class="card shadow-sm" 
+       style="border:none; border-radius:1rem; background-color:white; 
+              box-shadow:0 8px 20px rgba(0,0,0,0.05); padding:30px;">
+    
+    <h2 style="text-align:center; margin-bottom:25px; font-weight:600; color:#212529;">
+      Article Details
+    </h2>
+
+    <p style="font-size:1.1rem; color:#212529; margin-bottom:10px;">
+      <strong style="color:#495057;">Title:</strong> <%= @article.title %>
+    </p>
+
+    <p style="font-size:1rem; color:#6c757d; line-height:1.6; margin-bottom:25px;">
+      <strong style="color:#495057;">Description:</strong> <%= @article.description %>
+    </p>
+
+    <!-- Created & Updated Info -->
+    <div style="color:#adb5bd; font-size:0.9rem; margin-bottom:35px;">
+      <p style="margin:0;">🕒 Created <%= time_ago_in_words(@article.created_at) %> ago</p>
+      <p style="margin:0;">🔄 Updated <%= time_ago_in_words(@article.updated_at) %> ago</p>
+    </div>
+
+    <!-- Buttons -->
+    <div style="display:flex; justify-content:center; flex-wrap:wrap; gap:10px;">
+
+      <%= link_to '✏️ Edit', edit_article_path(@article),
+            class: 'btn btn-outline-warning',
+            style: 'border-radius:50px; padding:8px 20px; font-weight:500; transition:all 0.2s ease;' %>
+
+      <%= button_to '🗑 Delete', article_path(@article),
+            method: :delete,
+            form: { data: { turbo_confirm: "Are you sure?" } },
+            class: 'btn btn-outline-danger',
+            style: 'border-radius:50px; padding:8px 20px; font-weight:500; transition:all 0.2s ease; display:inline-block;' %>
+
+      <%= link_to '⬅ Back to Articles', articles_path,
+            class: 'btn btn-outline-secondary',
+            style: 'border-radius:50px; padding:8px 20px; font-weight:500; transition:all 0.2s ease;' %>
+
+    </div>
+  </div>
+</div>
