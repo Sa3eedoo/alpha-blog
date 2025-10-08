@@ -20,8 +20,22 @@
               style: 'font-weight:500; color:#212529; margin-right:15px;' %>
       </li>
 
+      <!-- Dropdown for Articles -->
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="articlesDropdown" role="button"
+           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+           style="font-weight:500; color:#212529; margin-right:15px;">
+          Articles
+        </a>
+        <div class="dropdown-menu" aria-labelledby="articlesDropdown">
+          <%= link_to 'All Articles', articles_path, class: 'dropdown-item' %>
+          <%= link_to 'Create New Article', new_article_path, class: 'dropdown-item' %>
+        </div>
+      </li>
+
+      <!-- Users -->
       <li class="nav-item">
-        <%= link_to 'Articles', articles_path, 
+        <%= link_to 'Bloggers', users_path, 
               class: 'nav-link', 
               style: 'font-weight:500; color:#212529; margin-right:15px;' %>
       </li>
