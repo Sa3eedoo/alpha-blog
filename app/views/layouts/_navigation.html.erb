@@ -48,18 +48,33 @@
 
     </ul>
 
+    <!-- Right-side buttons -->
     <div class="my-2 my-lg-0" style="display:flex; gap:10px; align-items:center;">
-      <%= link_to 'Sign Up', signup_path, 
-            class: 'btn btn-primary', 
-            style: 'border-radius:50px; padding:6px 18px; font-weight:500; font-size:0.9rem;' %>
+      <% if logged_in? %>
+        <!-- User avatar + username -->
+        <div style="display:flex; align-items:center; gap:8px; margin-right:8px;">
+          <%= link_to user_path(current_user), style: "display:flex; align-items:center; text-decoration:none;" do %>
+            <%= image_tag gravatar_for(current_user), 
+                  alt: current_user.username,
+                  onerror: "this.onerror=null;this.src='#{asset_path('placeholder.png')}';",
+                  style: "width:35px; height:35px; border-radius:50%; object-fit:cover; margin-right:6px;" %>
+            <span style="font-weight:500; color:#495057;"><%= current_user.username %></span>
+          <% end %>
+        </div>
 
-      <%= link_to 'Login', login_path, 
-            class: 'btn btn-outline-primary', 
-            style: 'border-radius:50px; padding:6px 18px; font-weight:500; font-size:0.9rem;' %>
+        <!-- Log Out button -->
+        <%= button_to 'Logout', logout_path, method: :delete,
+              class: 'btn btn-outline-danger',
+              style: 'border-radius:50px; padding:6px 18px; font-weight:500; font-size:0.9rem;' %>
+      <% else %>
+        <%= link_to 'Sign Up', signup_path, 
+              class: 'btn btn-primary', 
+              style: 'border-radius:50px; padding:6px 18px; font-weight:500; font-size:0.9rem;' %>
 
-      <%= button_to 'Logout', logout_path, method: :delete,
-            class: 'btn btn-outline-primary', 
-            style: 'border-radius:50px; padding:6px 18px; font-weight:500; font-size:0.9rem;' %>
+        <%= link_to 'Login', login_path, 
+              class: 'btn btn-outline-primary', 
+              style: 'border-radius:50px; padding:6px 18px; font-weight:500; font-size:0.9rem;' %>
+      <% end %>
     </div>
   </div>
 </nav>
