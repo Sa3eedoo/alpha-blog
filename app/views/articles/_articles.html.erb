@@ -49,7 +49,7 @@
         <%= link_to 'View', article_path(article),
               style: 'border:1px solid #0d6efd; color:#0d6efd; background:white; border-radius:50px; padding:8px 20px; font-weight:500; font-size:0.9rem; text-decoration:none; transition:all 0.2s ease;' %>
 
-        <% if logged_in? && article.user == current_user %>
+        <% if logged_in? && (article.user == current_user || current_user.admin?) %>
           <%= link_to 'Edit', edit_article_path(article),
                 style: 'border:1px solid #6c757d; color:#6c757d; background:white; border-radius:50px; padding:8px 20px; font-weight:500; font-size:0.9rem; text-decoration:none; transition:all 0.2s ease;' %>
 

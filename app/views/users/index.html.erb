@@ -24,17 +24,35 @@
 
         <%= link_to 'View Profile', user_path(user),
               style: "display:inline-block; border:1px solid #0d6efd; color:#0d6efd; border-radius:50px; padding:5px 15px; font-size:0.85rem; text-decoration:none; font-weight:500; transition:all 0.2s ease;" %>
+
+        <% if logged_in? %>
+          <div style="margin-top:12px;">
+          <% if current_user == user || current_user.admin? %>
+              <%= link_to 'Edit Profile', edit_user_path(user),
+                    style: 'display:inline-block; margin-bottom:10px; margin-right:6px; border:1px solid #198754; color:#198754; border-radius:50px; padding:5px 15px; font-size:0.85rem; text-decoration:none; font-weight:500; transition:all 0.2s ease;' %>
+          <% end %>
+          <% if current_user.admin? %>
+              <%= button_to 'Delete Account', user_path(user),
+                    method: :delete,
+                    data: { confirm: "Are you sure you want to delete your account?" },
+                    style: 'display:inline-block; background:#dc3545; color:white; border:none; border-radius:50px; padding:6px 15px; font-size:0.85rem; font-weight:500; cursor:pointer; transition:background 0.2s ease;' %>
+          <% end %>
+          </div>
+        <% end %>
       </div>
     <% end %>
   </div>
 
-  <!-- Pagination (bottom only) -->
+  <!-- Pagination -->
   <div style="text-align:center; margin-top:40px;">
-    <%= will_paginate @users, renderer: WillPaginate::ActionView::LinkRenderer, inner_window: 1, outer_window: 0, previous_label: '← Prev', next_label: 'Next →', class: 'pagination' %>
+    <%= will_paginate @users, renderer: WillPaginate::ActionView::LinkRenderer,
+                      inner_window: 1, outer_window: 0,
+                      previous_label: '← Prev', next_label: 'Next →',
+                      class: 'pagination' %>
   </div>
 </div>
 
-<!-- Inline CSS styling for pagination -->
+<!-- Inline pagination style -->
 <style>
   .pagination {
     display: inline-flex;
