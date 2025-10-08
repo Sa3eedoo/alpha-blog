@@ -24,8 +24,10 @@
 
     <!-- Buttons -->
     <div style="display:flex; flex-direction:column; align-items:center; gap:10px; margin-top:10px;">
-      <%= link_to "✏️ Edit Profile", edit_user_path(@user),
-        style: "display:inline-block; border:1px solid #6c757d; color:#6c757d; border-radius:50px; padding:8px 20px; text-decoration:none; font-weight:500; transition:all 0.2s ease;" %>
+      <% if logged_in? && current_user == @user %>
+        <%= link_to "✏️ Edit Profile", edit_user_path(@user),
+          style: "display:inline-block; border:1px solid #6c757d; color:#6c757d; border-radius:50px; padding:8px 20px; text-decoration:none; font-weight:500; transition:all 0.2s ease;" %>
+      <% end %>
 
       <%= link_to "📄 View All Articles", articles_path,
         style: "display:inline-block; border:1px solid #0d6efd; color:#0d6efd; border-radius:50px; padding:8px 20px; text-decoration:none; font-weight:500; transition:all 0.2s ease;" %>

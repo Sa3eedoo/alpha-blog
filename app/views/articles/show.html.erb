@@ -2,36 +2,49 @@
   <div style="border:none; border-radius:1rem; background-color:white; 
               box-shadow:0 8px 20px rgba(0,0,0,0.05); padding:30px;">
     
-    <!-- Username -->
-    <div style="font-weight:700; font-size:1.3rem; color:#0d6efd; margin-bottom:10px;">
+    <!-- User Info -->
+    <div style="font-weight:700; font-size:1.3rem; color:#0d6efd; margin-bottom:10px; display:flex; align-items:center; gap:10px;">
       <% if @article.user.present? %>
-        👤 <%= link_to @article.user.username, user_path(@article.user), style: "color:#0d6efd; text-decoration:none;" %>
+        <%# User avatar or placeholder %>
+        <%= image_tag gravatar_for(@article.user),
+              alt: @article.user.username,
+              onerror: "this.onerror=null;this.src='#{asset_path('placeholder.png')}';",
+              style: "width:45px; height:45px; border-radius:50%; object-fit:cover;" %>
+        <%= link_to @article.user.username, user_path(@article.user),
+              style: "color:#0d6efd; text-decoration:none; font-weight:600;" %>
       <% else %>
-        @anonymous
+        <div style="font-size:1.6rem;">👤</div>
+        <span style="color:#6c757d; font-weight:600;">@anonymous</span>
       <% end %>
     </div>
 
+    <!-- Article Title -->
     <h2 style="margin-bottom:25px; font-weight:600; color:#212529;">
       <%= @article.title %>
     </h2>
 
+    <!-- Description -->
     <p style="font-size:1rem; color:#6c757d; line-height:1.6; margin-bottom:25px;">
       <%= @article.description %>
     </p>
 
+    <!-- Timestamps -->
     <div style="color:#adb5bd; font-size:0.9rem; margin-bottom:35px;">
       <p style="margin:0;">🕒 Created <%= time_ago_in_words(@article.created_at) %> ago</p>
       <p style="margin:0;">🔄 Updated <%= time_ago_in_words(@article.updated_at) %> ago</p>
     </div>
 
+    <!-- Action Buttons -->
     <div style="display:flex; justify-content:center; flex-wrap:wrap; gap:10px;">
-      <%= link_to '✏️ Edit', edit_article_path(@article),
-            style: 'border:1px solid #ffc107; color:#ffc107; background:white; border-radius:50px; padding:8px 20px; font-weight:500; text-decoration:none; transition:all 0.2s ease;' %>
+      <% if logged_in? && @article.user == current_user %>
+        <%= link_to '✏️ Edit', edit_article_path(@article),
+              style: 'border:1px solid #ffc107; color:#ffc107; background:white; border-radius:50px; padding:8px 20px; font-weight:500; text-decoration:none; transition:all 0.2s ease;' %>
 
-      <%= button_to '🗑 Delete', article_path(@article),
-            method: :delete,
-            form: { data: { turbo_confirm: "Are you sure?" } },
-            style: 'border:1px solid #dc3545; color:#dc3545; background:white; border-radius:50px; padding:8px 20px; font-weight:500; transition:all 0.2s ease; display:inline-block;' %>
+        <%= button_to '🗑 Delete', article_path(@article),
+              method: :delete,
+              form: { data: { turbo_confirm: "Are you sure?" } },
+              style: 'border:1px solid #dc3545; color:#dc3545; background:white; border-radius:50px; padding:8px 20px; font-weight:500; transition:all 0.2s ease; display:inline-block;' %>
+      <% end %>
 
       <%= link_to '⬅ Back to Articles', articles_path,
             style: 'border:1px solid #6c757d; color:#6c757d; background:white; border-radius:50px; padding:8px 20px; font-weight:500; text-decoration:none; transition:all 0.2s ease;' %>
