@@ -1,25 +1,36 @@
 <div style="max-width:700px; margin:60px auto; font-family:'Poppins',sans-serif;">
   <div style="background-color:white; border-radius:1rem; box-shadow:0 8px 20px rgba(0,0,0,0.05); padding:30px; text-align:center;">
 
+    <!-- Profile Image -->
     <%= image_tag gravatar_for(@user),
       alt: @user.username,
       onerror: "this.onerror=null;this.src='#{asset_path('placeholder.png')}';",
       style: "width:150px; height:150px; border-radius:50%; margin-bottom:15px; object-fit:cover;" %>
 
+    <!-- Username -->
     <h2 style="font-weight:700; font-size:1.6rem; color:#0d6efd; margin-bottom:5px;">
       <%= @user.username %>
     </h2>
 
+    <!-- Article Count -->
     <p style="font-size:0.95rem; color:#495057; margin-bottom:20px;">
       📝 <%= pluralize(@user.articles.count, "Article") %>
     </p>
 
+    <!-- Member Since -->
     <p style="font-size:1rem; color:#6c757d; margin-bottom:25px;">
       Member since <%= time_ago_in_words(@user.created_at) %> ago
     </p>
 
-    <%= link_to "📄 View All Articles", articles_path,
-      style: "display:inline-block; border:1px solid #0d6efd; color:#0d6efd; border-radius:50px; padding:8px 20px; text-decoration:none; font-weight:500; transition:all 0.2s ease;" %>
+    <!-- Buttons -->
+    <div style="display:flex; flex-direction:column; align-items:center; gap:10px; margin-top:10px;">
+      <%= link_to "✏️ Edit Profile", edit_user_path(@user),
+        style: "display:inline-block; border:1px solid #6c757d; color:#6c757d; border-radius:50px; padding:8px 20px; text-decoration:none; font-weight:500; transition:all 0.2s ease;" %>
+
+      <%= link_to "📄 View All Articles", articles_path,
+        style: "display:inline-block; border:1px solid #0d6efd; color:#0d6efd; border-radius:50px; padding:8px 20px; text-decoration:none; font-weight:500; transition:all 0.2s ease;" %>
+    </div>
+
   </div>
 </div>
 

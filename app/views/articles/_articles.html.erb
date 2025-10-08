@@ -4,14 +4,26 @@
                 box-shadow:0 4px 10px rgba(0,0,0,0.05); margin-bottom:25px;
                 padding:25px; transition:transform 0.3s ease, box-shadow 0.3s ease;">
 
-      <!-- Username (only show if not on user profile) -->
+      <!-- User Info (only show if not on user profile) -->
       <% if !defined?(@user) && article.user.present? %>
-        <div style="font-weight:700; font-size:1.1rem; color:#0d6efd; margin-bottom:8px;">
-          👤 <%= link_to article.user.username, user_path(article.user), style: "color:#0d6efd; text-decoration:none;" %>
+        <div style="display:flex; align-items:center; gap:10px; margin-bottom:12px;">
+          <%= link_to user_path(article.user), style: "display:flex; align-items:center; gap:10px; text-decoration:none;" do %>
+            <% if article.user.email.present? %>
+              <%= image_tag gravatar_for(article.user),
+                    alt: article.user.username,
+                    onerror: "this.onerror=null;this.src='#{asset_path('placeholder.png')}';",
+                    style: "width:40px; height:40px; border-radius:50%; object-fit:cover;" %>
+            <% end %>
+
+            <span style="font-weight:700; font-size:1.1rem; color:#0d6efd;">
+              <%= article.user.username %>
+            </span>
+          <% end %>
         </div>
       <% elsif article.user.blank? %>
-        <div style="font-weight:700; font-size:1.1rem; color:#6c757d; margin-bottom:8px;">
-          @anonymous
+        <div style="display:flex; align-items:center; gap:10px; margin-bottom:12px;">
+          <div style="font-size:1.6rem;">👤</div>
+          <span style="font-weight:700; font-size:1.1rem; color:#6c757d;">@anonymous</span>
         </div>
       <% end %>
 
